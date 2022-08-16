@@ -61,7 +61,12 @@ export default class AppClass extends React.Component {
 
   reset = () => {
     // Use this helper to reset all states to their initial values.
-    this.setState({...this.state, initialState})
+    this.setState({...this.state, 
+      message: initialMessage,
+      email: initialEmail,
+      index: initialIndex,
+      steps: initialSteps
+    })
   }
 
   getNextIndex = (direction) => {
@@ -84,7 +89,8 @@ export default class AppClass extends React.Component {
   move = (evt) => {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
-    this.setState({index: this.getNextIndex(evt)})
+    // debugger
+    this.setState({index: this.getNextIndex(evt), steps: this.state.steps + 1})
   }
 
   onChange = (evt) => {
@@ -120,7 +126,7 @@ export default class AppClass extends React.Component {
           <button id="up" onClick={() => this.move('up')}>UP</button>
           <button id="right" onClick={() => this.move('right')}>RIGHT</button>
           <button id="down" onClick={() => this.move('down')}>DOWN</button>
-          <button id="reset">reset</button>
+          <button id="reset" onClick={() => this.reset()}>reset</button>
         </div>
         <form>
           <input id="email" type="email" placeholder="type email" value={this.state.email} onChange={this.onChange}></input>
