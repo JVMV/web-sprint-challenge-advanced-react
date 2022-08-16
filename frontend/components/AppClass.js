@@ -29,6 +29,27 @@ export default class AppClass extends React.Component {
   getXY = () => {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
+    if(this.state.index === 0) {
+      return '(1,1)'
+    } else if(this.state.index === 1) {
+      return '(2,1)'
+    } else if(this.state.index === 2) {
+      return '(3,1)'
+    } else if(this.state.index === 3) {
+      return '(1,2)'
+    } else if(this.state.index === 4) {
+      return '(2,2)'
+    } else if(this.state.index === 5) {
+      return '(3,2)'
+    } else if(this.state.index === 6) {
+      return '(1,3)'
+    } else if(this.state.index === 7) {
+      return '(2,3)'
+    } else if(this.state.index === 8) {
+      return '(3,3)'
+    } else {
+      return 'Secret Message'
+    }
   }
 
   getXYMessage = () => {
@@ -65,7 +86,7 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates (2, 2)</h3>
+          <h3 id="coordinates">{`Coordinates ${this.getXY()}`}</h3>
           <h3 id="steps">{`You moved ${this.state.steps} times`}</h3>
         </div>
         <div id="grid">
