@@ -56,13 +56,26 @@ export default class AppClass extends React.Component {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
+    return `Coordinates ${this.getXY()}`
   }
 
   reset = () => {
     // Use this helper to reset all states to their initial values.
+    this.setState({...this.state, initialState})
   }
 
   getNextIndex = (direction) => {
+    if(direction === 'up' && this.state.index !== 0 && this.state.index !== 1 && this.state.index !== 2 ) {
+      return this.state.index - 3
+    } else if(direction === 'down' && this.state.index !== 6 && this.state.index !== 7 && this.state.index !== 8) {
+      return this.state.index + 3
+    } else if(direction === 'left' && this.state.index !== 0 && this.state.index !== 3 && this.state.index !== 6) {
+      return this.state.index - 1
+    } else if(direction === 'right' && this.state.index !== 2 && this.state.index !== 5 && this.state.index !== 8) {
+      return this.state.index + 1
+    } else {
+      return this.state.index
+    }
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.
@@ -71,6 +84,7 @@ export default class AppClass extends React.Component {
   move = (evt) => {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
+    this.setState({index: this.getNextIndex(evt)})
   }
 
   onChange = (evt) => {
@@ -86,7 +100,7 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">{`Coordinates ${this.getXY()}`}</h3>
+          <h3 id="coordinates">{this.getXYMessage()}</h3>
           <h3 id="steps">{`You moved ${this.state.steps} times`}</h3>
         </div>
         <div id="grid">
@@ -102,14 +116,14 @@ export default class AppClass extends React.Component {
           <h3 id="message"></h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
-          <button id="up">UP</button>
-          <button id="right">RIGHT</button>
-          <button id="down">DOWN</button>
+          <button id="left" onClick={() => this.move('left')}>LEFT</button>
+          <button id="up" onClick={() => this.move('up')}>UP</button>
+          <button id="right" onClick={() => this.move('right')}>RIGHT</button>
+          <button id="down" onClick={() => this.move('down')}>DOWN</button>
           <button id="reset">reset</button>
         </div>
         <form>
-          <input id="email" type="email" placeholder="type email" value={this.state.email}></input>
+          <input id="email" type="email" placeholder="type email" value={this.state.email} onChange={this.onChange}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>
