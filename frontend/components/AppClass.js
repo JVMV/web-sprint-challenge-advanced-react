@@ -30,23 +30,32 @@ export default class AppClass extends React.Component {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
     if(this.state.index === 0) {
-      return '(1,1)'
+      const xy = {x:1,y:1}
+      return xy
     } else if(this.state.index === 1) {
-      return '(2,1)'
+      const xy = {x:2,y:1}
+      return xy
     } else if(this.state.index === 2) {
-      return '(3,1)'
+      const xy = {x:3,y:1}
+      return xy
     } else if(this.state.index === 3) {
-      return '(1,2)'
+      const xy = {x:1,y:2}
+      return xy
     } else if(this.state.index === 4) {
-      return '(2,2)'
+      const xy = {x:2,y:2}
+      return xy
     } else if(this.state.index === 5) {
-      return '(3,2)'
+      const xy = {x:3,y:2}
+      return xy
     } else if(this.state.index === 6) {
-      return '(1,3)'
+      const xy = {x:1,y:3}
+      return xy
     } else if(this.state.index === 7) {
-      return '(2,3)'
+      const xy = {x:2,y:3}
+      return xy
     } else if(this.state.index === 8) {
-      return '(3,3)'
+      const xy = {x:3,y:3}
+      return xy
     } else {
       return 'Secret Message'
     }
@@ -56,7 +65,8 @@ export default class AppClass extends React.Component {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
-    return `Coordinates ${this.getXY()}`
+    const xy = this.getXY()
+    return `Coordinates (${xy.x},${xy.y})`
   }
 
   reset = () => {
@@ -100,6 +110,7 @@ export default class AppClass extends React.Component {
 
   onSubmit = (evt) => {
     // Use a POST request to send a payload to the server.
+
   }
 
   render() {
@@ -131,7 +142,7 @@ export default class AppClass extends React.Component {
         </div>
         <form>
           <input id="email" type="email" placeholder="type email" value={this.state.email} onChange={this.onChange}></input>
-          <input id="submit" type="submit"></input>
+          <input id="submit" type="submit" onClick={() => onSubmit()}></input>
         </form>
       </div>
     )
