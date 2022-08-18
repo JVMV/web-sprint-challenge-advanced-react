@@ -151,8 +151,6 @@ export default class AppClass extends React.Component {
   move = (evt) => {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
-    // debugger
-    this.setState({...this.state, message: "You can't go left"})
     this.setState({index: this.getNextIndex(evt)})
   }
 
