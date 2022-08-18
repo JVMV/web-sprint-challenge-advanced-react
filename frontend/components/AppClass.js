@@ -76,7 +76,8 @@ export default class AppClass extends React.Component {
       message: initialMessage,
       email: initialEmail,
       index: initialIndex,
-      steps: initialSteps
+      steps: initialSteps,
+      theS: 's'
     })
   }
 
@@ -166,6 +167,10 @@ export default class AppClass extends React.Component {
 
     if(this.state.email === 'foo@bar.baz') {
       this.setState({message: 'foo@bar.baz failure #71'})
+    } else if(this.state.email === initialEmail) {
+      this.setState({...this.state, message: 'Ouch: email is required'})
+    } else if(this.state.email.match(/^((?!.com).)*$/)) {
+      this.setState({...this.state, message: 'Ouch: email must be a valid email'})
     } else {
       const xy = this.getXY()
     const data = {
@@ -180,7 +185,7 @@ export default class AppClass extends React.Component {
       .then(res => {
         this.setState({...this.state, message: res.data.message, email: initialEmail})
       })
-      .catch(err => console.log(err.message))
+      .catch(err => console.log(err))
     }
   }
 
@@ -190,7 +195,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">{this.getXYMessage()}</h3>
-          <h3 id="steps">{`You moved ${this.state.steps} times`}</h3>
+          <h3 id="steps">{this.state.steps === 1 ? `You moved ${this.state.steps} time` : `You moved ${this.state.steps} times`}</h3>
         </div>
         <div id="grid">
           {
