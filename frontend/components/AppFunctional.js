@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 // Suggested initial states
 const initialMessage = ''
@@ -6,7 +6,15 @@ const initialEmail = ''
 const initialSteps = 0
 const initialIndex = 4 // the index the "B" is at
 
+const initialState = {
+  message: initialMessage,
+  email: initialEmail,
+  index: initialIndex,
+  steps: initialSteps,
+}
+
 export default function AppFunctional(props) {
+  const [state, setState] = useState(initialState)
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
@@ -48,13 +56,13 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="steps">{state.steps !== 1 ? `You moved ${state.steps} times` : `You moved ${state.steps} time`}</h3>
       </div>
       <div id="grid">
         {
           [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+            <div key={idx} className={`square${idx === state.index ? ' active' : ''}`}>
+              {idx === state.index ? 'B' : null}
             </div>
           ))
         }
